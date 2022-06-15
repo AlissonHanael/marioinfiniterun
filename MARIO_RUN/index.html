@@ -8,14 +8,19 @@
     <title>MARIO INFINITE RUN</title>
   </head>
   <body>
-    <div class="game-board">
-      <img src="assets/img/clouds.png" class="clouds" />
-      <img src="assets/img/mario.gif" class="mario" />
-      <img src="assets/img/pipe.png" class="pipe" />
+    <div class="game">
+      <div class="game-board">
+        <img src="assets/img/clouds.png" class="clouds" />
+        <img src="assets/img/mario.gif" class="mario" />
+        <img src="assets/img/pipe.png" class="pipe" />
+      </div>
+      <button onclick="reiniciar()" class="restart">Reiniciar</button>
     </div>
     <div class="info">
-      <div class="score">Você fez pontos</div>
-      <div class="record">Sua pontuação máxima foi de:</div>
+      <div class="score">Você fez <span id="pontos"></span> pontos</div>
+      <div class="record">
+        Sua pontuação máxima foi de: <span id="recorde"></span>
+      </div>
     </div>
     <script src="assets/js/main.js"></script>
   </body>
