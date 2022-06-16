@@ -1,9 +1,10 @@
 const mario = document.querySelector('.mario')
 const pipe = document.querySelector('.pipe')
 const restart = document.querySelector('.restart')
+const menu = document.querySelector('.menu')
 let count = 0
 let record = 0
-let vivo = true
+
 const jump = () => {
   mario.classList.add('jump')
 
@@ -15,8 +16,10 @@ const jump = () => {
 iniciar()
 
 function iniciar() {
-  pontuacao()
-  setInterval(() => {
+  const pontuacao = setInterval(() => {
+    count++
+  }, 600)
+  const loop = setInterval(() => {
     const pipePosition = pipe.offsetLeft
     const marioPosition = +window
       .getComputedStyle(mario)
@@ -34,7 +37,10 @@ function iniciar() {
       if (record <= count) {
         record = count
       }
+      clearInterval(loop)
+      clearInterval(pontuacao)
       restart.classList.add('replay')
+      menu.classList.add('menu')
     }
     document.getElementById('pontos').innerHTML = count
     document.getElementById('recorde').innerHTML = record
@@ -43,7 +49,7 @@ function iniciar() {
 
 function reiniciar() {
   restart.classList.remove('replay')
-
+  menu.classList.remove('menu')
   const pipePosition = -100
   const marioPosition = 0
 
@@ -60,12 +66,6 @@ function reiniciar() {
   }
   document.getElementById('pontos').innerHTML = count
   document.getElementById('recorde').innerHTML = record
-}
-
-function pontuacao() {
-  while (vivo) {
-    count++
-  }
 }
 
 document.addEventListener('keydown', jump)
