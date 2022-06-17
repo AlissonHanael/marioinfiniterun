@@ -28,10 +28,6 @@ function jump(e) {
   }
 }
 
-/*pipe.addEventListener("animationstart", () => {
-  //pipe.style.animationDuration -= 50;
-  console.log("chegou aqui");
-});*/
 iniciar();
 
 function iniciar() {
@@ -44,17 +40,6 @@ function iniciar() {
   const pontuacao = setInterval(() => {
     count++;
   }, 500);
-  /*const speedInterval = setInterval(() => {
-    // velocity 750ms
-    if (speed > maxSpeed) {
-      speed -= 50;
-    }
-  }, 500);*/
-
-  /*for (let i = speed; i > maxSpeed; i -= 50) {
-    pipe.style.animationDuration = `${i}ms`;
-    await sleep(i);
-  }*/
 
   const loop = setInterval(() => {
     const pipePosition = pipe.offsetLeft;
@@ -92,12 +77,9 @@ function reiniciar() {
   pipe.style.left = ""; // reseta para posicao inicial
   pipe.style.animation = ""; // reseta para posicao inicial
   mario.style.animation = ""; // reseta para posicao inicial
-  mario.style.bottom = ""; //
+  mario.style.bottom = ""; // reseta para posicao inicial
   iniciar();
 
   document.getElementById("score").innerHTML = count;
   document.getElementById("record").innerHTML = record;
-}
-function sleep(ms) {
-  return new Promise((resolve) => setTimeout(resolve, ms));
 }

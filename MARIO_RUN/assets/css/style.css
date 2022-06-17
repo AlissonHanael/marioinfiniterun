@@ -36,14 +36,14 @@
 .mario {
   width: 150px;
   height: 150px;
-  background-image: url(/assets/img/mario.gif);
+  background-image: url("../img/mario.gif");
   background-size: contain;
   position: absolute;
   bottom: 0;
 }
 .morto {
   position: absolute;
-  background-image: url(/assets/img/game-over.png);
+  background-image: url("../img/game-over.png");
   background-size: contain;
   background-repeat: no-repeat;
   margin-left: 50px;
@@ -104,7 +104,7 @@
 .floor {
   width: 100%;
   height: 7vh;
-  background-image: url(/assets/img/mario_floor.png);
+  background-image: url("../img/mario_floor.png");
 }
 
 @keyframes pipe-animation {
