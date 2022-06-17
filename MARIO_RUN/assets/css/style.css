@@ -1,9 +1,9 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-.menu{
+.menu {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,70 +13,86 @@
   background: rgba(0, 0, 0, 0.45);
   z-index: 2;
 }
-.game-board{
+
+.game-board {
   width: 100%;
   height: 93vh;
   margin: 0 auto;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(#87CEEB, #E0F6FF ) ;
+  background: linear-gradient(#87ceeb, #e0f6ff);
   z-index: 1;
 }
-.pipe{
+.pipe {
   position: absolute;
   bottom: 0;
   width: 80px;
-  right: -80px;
-  animation: pipe-animation 1.5s infinite linear;
+  right: -200px;
 }
-.mario{
+.animated {
+  animation: pipe-animation infinite linear;
+  animation-duration: 1500ms;
+}
+.mario {
   width: 150px;
+  height: 150px;
+  background-image: url(/assets/img/mario.gif);
+  background-size: contain;
   position: absolute;
   bottom: 0;
 }
-.jump{
+.morto {
+  position: absolute;
+  background-image: url(/assets/img/game-over.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-left: 50px;
+  width: 100px;
+  height: 100px;
+  animation: mario-morto 1s ease-out;
+  animation-fill-mode: forwards;
+}
+.jump {
   animation: jump 500ms ease-out;
 }
 
-.clouds{
+.clouds {
   position: absolute;
   width: 550px;
   animation: clouds-animation 20s infinite linear;
 }
-.info{
+.info {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   background: transparent;
 }
-.score{
+.score {
   width: 50%;
   padding: 1rem;
   font-family: arial, sans-serif;
   font-size: 20px;
 }
-.record{
+.record {
   width: 50%;
   padding: 1rem;
   font-family: arial, sans-serif;
   font-size: 20px;
 }
 
-.restart{
+.restart {
   display: none;
   position: absolute;
-  
 }
 
-.replay{
+.replay {
   display: flex;
   position: relative;
   justify-content: center;
   align-items: center;
-
 }
-.restart{
+.restart {
   color: white;
   font-family: Arial, sans-serif;
   background: #000;
@@ -85,44 +101,55 @@
   padding: 0.875rem;
   border-radius: 1rem;
 }
-.chao{
+.floor {
   width: 100%;
   height: 7vh;
   background-image: url(/assets/img/mario_floor.png);
 }
+
 @keyframes pipe-animation {
-  from{
+  from {
     right: -80px;
   }
-  to{
+  to {
     right: 100%;
   }
-  
 }
 
 @keyframes jump {
   0% {
     bottom: 0;
   }
-  40%{
+  40% {
     bottom: 180px;
   }
-  50%{
+  50% {
     bottom: 180px;
   }
-  60%{
+  60% {
     bottom: 180px;
   }
-  100%{
+  100% {
     bottom: 0;
   }
 }
 
 @keyframes clouds-animation {
-  from{
+  from {
     right: -550px;
   }
-  to{
-    right: 100%
+  to {
+    right: 100%;
+  }
+}
+@keyframes mario-morto {
+  0% {
+    bottom: 0;
+  }
+  50% {
+    bottom: 180px;
+  }
+  100% {
+    bottom: -100px;
   }
 }

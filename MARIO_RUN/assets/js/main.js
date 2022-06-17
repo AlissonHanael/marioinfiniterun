@@ -1,71 +1,103 @@
-const mario = document.querySelector('.mario')
-const pipe = document.querySelector('.pipe')
-const restart = document.querySelector('.restart')
-const menu = document.querySelector('.menu')
-let count = 0
-let record = 0
+const mario = document.querySelector(".mario");
+const pipe = document.querySelector(".pipe");
+const restart = document.querySelector(".restart");
+const menu = document.querySelector(".menu");
+const jumpSound = new Audio("assets/sound/mario_jump.wav");
+const deadSound = document.getElementById("mario_dead");
+let speed = 1500;
+let count = 0;
+let record = 0;
+const maxSpeed = 750;
+var pulo = false;
 
-const jump = () => {
-  mario.classList.add('jump')
+menu.classList.remove("menu");
+document.addEventListener("keydown", jump);
 
-  setTimeout(() => {
-    mario.classList.remove('jump')
-  }, 500)
+function jump(e) {
+  if (e.code === "Space" || e.code === "ArrowUp") {
+    if (pulo == true) {
+      return;
+    }
+    jumpSound.play();
+    pulo = true;
+    mario.classList.add("jump");
+    setTimeout(() => {
+      pulo = false;
+      mario.classList.remove("jump");
+    }, 500);
+  }
 }
 
-iniciar()
+/*pipe.addEventListener("animationstart", () => {
+  //pipe.style.animationDuration -= 50;
+  console.log("chegou aqui");
+});*/
+iniciar();
 
 function iniciar() {
+  pipe.classList.add("animated");
+
+  deadSound.addEventListener("ended", () => {
+    restart.classList.add("replay");
+    menu.classList.add("menu");
+  });
   const pontuacao = setInterval(() => {
-    count++
-  }, 600)
+    count++;
+  }, 500);
+  /*const speedInterval = setInterval(() => {
+    // velocity 750ms
+    if (speed > maxSpeed) {
+      speed -= 50;
+    }
+  }, 500);*/
+
+  /*for (let i = speed; i > maxSpeed; i -= 50) {
+    pipe.style.animationDuration = `${i}ms`;
+    await sleep(i);
+  }*/
+
   const loop = setInterval(() => {
-    const pipePosition = pipe.offsetLeft
+    const pipePosition = pipe.offsetLeft;
     const marioPosition = +window
       .getComputedStyle(mario)
-      .bottom.replace('px', '')
-    if (pipePosition <= 120 && pipePosition > 0 && marioPosition < 80) {
-      vivo = false
-      pipe.style.animation = 'none'
-      pipe.style.left = `${pipePosition}px`
-      mario.style.animation = 'none'
-      mario.style.bottom = `${marioPosition}px`
+      .bottom.replace("px", "");
 
-      mario.src = 'assets/img/game-over.png'
-      mario.style.width = '75px'
-      mario.style.marginLeft = '50px'
-      if (record <= count) {
-        record = count
+    if (pipePosition <= 120 && pipePosition > 0 && marioPosition < 80) {
+      pipe.classList.remove("animated");
+      pipe.style.left = `${pipePosition}px`;
+      mario.style.bottom = `${marioPosition}px`;
+
+      if (deadSound) {
+        deadSound.play();
       }
-      clearInterval(loop)
-      clearInterval(pontuacao)
-      restart.classList.add('replay')
-      menu.classList.add('menu')
+      mario.classList.remove("mario");
+      mario.classList.add("morto");
+      if (record <= count) {
+        record = count;
+      }
+      clearInterval(loop);
+      clearInterval(pontuacao);
     }
-    document.getElementById('pontos').innerHTML = count
-    document.getElementById('recorde').innerHTML = record
-  }, 10)
+    document.getElementById("score").innerHTML = count;
+    document.getElementById("record").innerHTML = record;
+  }, 10);
 }
 
 function reiniciar() {
-  restart.classList.remove('replay')
-  menu.classList.remove('menu')
-  const pipePosition = -100
-  const marioPosition = 0
+  restart.classList.remove("replay");
+  menu.classList.remove("menu");
+  mario.classList.remove("morto");
+  mario.classList.add("mario");
+  count = 0;
+  pipe.style.left = ""; // reseta para posicao inicial
+  pipe.style.animation = ""; // reseta para posicao inicial
+  mario.style.animation = ""; // reseta para posicao inicial
+  mario.style.bottom = ""; //
+  iniciar();
 
-  mario.style.bottom = `${marioPosition}px`
-  mario.src = 'assets/img/mario.gif'
-  mario.style.width = '150px'
-  mario.style.marginLeft = '0px' //fazer variaveis global
-  count = 0
-  if (pipePosition <= 120 && marioPosition < 80) {
-    pipe.style.left = ''
-    pipe.style.animation = ''
-    mario.style.animation = ''
-    iniciar()
-  }
-  document.getElementById('pontos').innerHTML = count
-  document.getElementById('recorde').innerHTML = record
+  document.getElementById("score").innerHTML = count;
+  document.getElementById("record").innerHTML = record;
 }
-
-document.addEventListener('keydown', jump)
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}

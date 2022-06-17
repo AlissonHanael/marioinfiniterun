@@ -9,19 +9,20 @@
   </head>
   <header></header>
   <body>
+    <audio id="mario_dead" src="assets/sound/mario_dead.wav"></audio>
     <div class="menu">
       <button onclick="reiniciar()" class="restart">Reiniciar</button>
     </div>
     <div class="game-board">
       <div class="info">
-        <div class="score">Você fez <span id="pontos"></span> pontos</div>
-        <div class="record">HIGH SCORE: <span id="recorde"></span></div>
+        <div class="score">Você fez <span id="score"></span> pontos</div>
+        <div class="record">HIGH SCORE: <span id="record"></span></div>
       </div>
       <img src="assets/img/clouds.png" class="clouds" />
-      <img src="assets/img/mario.gif" class="mario" />
+      <div class="mario"></div>
       <img src="assets/img/pipe.png" class="pipe" />
     </div>
-    <div class="chao"></div>
-    <script src="assets/js/main.js"></script>
+    <div class="floor"></div>
+    <script src="assets/js/main.js" defer></script>
   </body>
 </html>
